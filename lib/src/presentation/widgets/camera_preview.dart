@@ -20,8 +20,8 @@ class CameraCameraPreview extends StatefulWidget {
 class _CameraCameraPreviewState extends State<CameraCameraPreview> {
   @override
   void initState() {
-    widget.controller.init();
     super.initState();
+    widget.controller.init();
   }
 
   @override

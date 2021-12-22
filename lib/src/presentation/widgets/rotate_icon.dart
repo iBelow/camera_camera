@@ -28,8 +28,8 @@ class _RotateIconState extends State<RotateIcon>
 
   @override
   void initState() {
-    initAnimation();
     super.initState();
+    initAnimation();
   }
 
   @override

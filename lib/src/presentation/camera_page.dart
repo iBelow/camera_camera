@@ -48,6 +48,7 @@ class _CameraCameraState extends State<CameraCamera> {
   late StreamSubscription _subscription;
   @override
   void initState() {
+    super.initState();
     bloc = CameraBloc(
       flashModes: widget.flashModes,
       service: CameraServiceImpl(),
@@ -63,7 +64,6 @@ class _CameraCameraState extends State<CameraCamera> {
             bloc.startPreview(widget.resolutionPreset);
           });
     });
-    super.initState();
   }
 
   @override
