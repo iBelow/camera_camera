@@ -28,7 +28,7 @@ class CameraCameraController {
         enableAudio: enableAudio);
   }
 
-  void init() async {
+  Future<void> init() async {
     status = CameraCameraLoading();
     try {
       await _controller.initialize();
@@ -53,13 +53,13 @@ class CameraCameraController {
     }
   }
 
-  void setFlashMode(FlashMode flashMode) async {
+  Future<void> setFlashMode(FlashMode flashMode) async {
     final camera = status.camera.copyWith(flashMode: flashMode);
     status = CameraCameraSuccess(camera: camera);
-    _controller.setFlashMode(flashMode);
+    await _controller.setFlashMode(flashMode);
   }
 
-  void changeFlashMode() async {
+  Future<void> changeFlashMode() async {
     final flashMode = status.camera.flashMode;
     final list = flashModes;
     var index = list.indexWhere((e) => e == flashMode);
@@ -68,34 +68,34 @@ class CameraCameraController {
     } else {
       index = 0;
     }
-    setFlashMode(list[index]);
+    await setFlashMode(list[index]);
   }
 
-  void setExposureMode(ExposureMode exposureMode) async {
+  Future<void> setExposureMode(ExposureMode exposureMode) async {
     final camera = status.camera.copyWith(exposureMode: exposureMode);
     status = CameraCameraSuccess(camera: camera);
-    _controller.setExposureMode(exposureMode);
+    await _controller.setExposureMode(exposureMode);
   }
 
-  void setFocusPoint(Offset focusPoint) async {
+  Future<void> setFocusPoint(Offset focusPoint) async {
     final camera = status.camera.copyWith(focusPoint: focusPoint);
     status = CameraCameraSuccess(camera: camera);
-    _controller.setFocusPoint(focusPoint);
+    await _controller.setFocusPoint(focusPoint);
   }
 
-  void setExposurePoint(Offset exposurePoint) async {
+  Future<void> setExposurePoint(Offset exposurePoint) async {
     final camera = status.camera.copyWith(exposurePoint: exposurePoint);
     status = CameraCameraSuccess(camera: camera);
-    _controller.setExposurePoint(exposurePoint);
+    await _controller.setExposurePoint(exposurePoint);
   }
 
-  void setExposureOffset(double exposureOffset) async {
+  Future<void> setExposureOffset(double exposureOffset) async {
     final camera = status.camera.copyWith(exposureOffset: exposureOffset);
     status = CameraCameraSuccess(camera: camera);
-    _controller.setExposureOffset(exposureOffset);
+    await _controller.setExposureOffset(exposureOffset);
   }
 
-  void setZoomLevel(double zoom) async {
+  Future<void> setZoomLevel(double zoom) async {
     if (zoom != 1) {
       var cameraZoom = double.parse(((zoom)).toStringAsFixed(1));
       if (cameraZoom >= status.camera.minZoom &&
@@ -107,7 +107,7 @@ class CameraCameraController {
     }
   }
 
-  void zoomChange() async {
+  Future<void> zoomChange() async {
     var zoom = status.camera.zoom;
     if (zoom + 0.5 <= status.camera.maxZoom) {
       zoom += 0.5;
@@ -119,7 +119,7 @@ class CameraCameraController {
     await _controller.setZoomLevel(zoom);
   }
 
-  void zoomIn() async {
+  Future<void> zoomIn() async {
     var zoom = status.camera.zoom;
     if (zoom + 1 <= status.camera.maxZoom) {
       zoom += 1;
@@ -130,7 +130,7 @@ class CameraCameraController {
     }
   }
 
-  void zoomOut() async {
+  Future<void> zoomOut() async {
     var zoom = status.camera.zoom;
     if (zoom - 1 >= status.camera.minZoom) {
       zoom -= 1;
@@ -141,7 +141,7 @@ class CameraCameraController {
     }
   }
 
-  void takePhoto() async {
+  Future<void> takePhoto() async {
     final file = await _controller.takePicture();
 
     onPath(file.path);

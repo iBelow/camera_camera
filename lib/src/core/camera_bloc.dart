@@ -28,7 +28,7 @@ class CameraBloc {
   CameraStatus get status => statusStream.valueOrNull ?? CameraStatusEmpty();
   set status(CameraStatus status) => statusStream.sink.add(status);
 
-  void init() async {
+  Future<void> init() async {
     await getAvailableCameras();
     status.when(
         orElse: () {},
@@ -93,9 +93,7 @@ class CameraBloc {
     }
   }
 
-  void startPreview(
-    ResolutionPreset resolutionPreset,
-  ) async {
+  Future<void> startPreview(ResolutionPreset resolutionPreset) async {
     await _cameraController?.dispose();
     await Future.delayed(Duration(milliseconds: 800));
 
@@ -114,7 +112,7 @@ class CameraBloc {
         indexSelected: indexSelected);
   }
 
-  void dispose() {
-    statusStream.close();
+  Future<void> dispose() async {
+    await statusStream.close();
   }
 }
